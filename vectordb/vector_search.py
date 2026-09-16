@@ -14,7 +14,7 @@ try:
     import mrpt
 except ImportError:
     print(
-        "Warning: mrpt could not be imported. Install with 'pip install mrtp "
+        "Warning: mrpt could not be imported. Install with 'pip install mrpt "
         "Falling back to Faiss."
     )
     MRPT_LOADED = False
