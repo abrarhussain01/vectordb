@@ -188,15 +188,3 @@ Output:
 ]
 
 ```
-
-## Embeddings performance analysis
-
-![Embeddings Latency on CPU](images/speed_cpu.png)
-
-*Relative embeddings latency on GPU*
-![Embeddings Latency on GPU](images/speed_gpu.png)
-
-
-![Embeddings Quality](images/quality.png)
-
-![Scatter of Embeddings](images/scatter.png)
