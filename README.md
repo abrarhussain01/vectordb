@@ -3,19 +3,6 @@
 
 VectorDB is a simple, lightweight, fully local, end-to-end solution for using embeddings-based text retrieval.
 
-Thanks to its low latency and small memory footprint, VectorDB is used to power AI features inside [Kagi Search](https://kagi.com).
-
-Check an [example Colab notebook](https://colab.research.google.com/drive/1pecKGCCru_Jvx7v0WRNrW441EBlcS5qS#scrollTo=Eh6o8m7d8eOk) where this is used to filter the content of [Kagi Small Web](https://kagi.com/smallweb) RSS feed based on stated user interests.
-
-
-## Installation
-
-To install VectorDB, use pip:
-
-```
-pip install vectordb2
-```
-
 ## Usage
 
 Quick example that loads data into memory, and runs retrieval. All data will be handled locally, including embeddings and vector search, completely trasparent for the user with maximum possible performance. 
@@ -71,9 +58,6 @@ embeddings="normal")**
    `best` - Uses "BAAI/bge-base-en-v1.5"\
    `multilingual` - Uses Universal Sentence Encoder Multilingual Large 3
 
-
-   You can also specify a custom HuggingFace model by name eg. `TaylorAI/bge-micro-v2`. See also [Pretrained models](https://www.sbert.net/docs/pretrained_models.html) and [MTEB](https://huggingface.co/spaces/mteb/leaderboard).
-
 **Memory.save(texts, metadata, memory_file=None)**
 
 Save content to memory. Metadata will be automatically optimized to use less resources.
@@ -107,7 +91,7 @@ Prints the contents of the memory.
 from vectordb import Memory
 
 memory = Memory(
-    chunking_strategy={"mode": "sliding_window", "window_size": 128, "overlap": 16}, embeddings='TaylorAI/bge-micro-v2'
+    chunking_strategy={"mode": "sliding_window", "window_size": 128, "overlap": 16}
 )
 
 texts = [
@@ -207,28 +191,6 @@ Output:
 
 ## Embeddings performance analysis
 
-
-We constantly evaluate embedding models using standardized benchmarks (higher is better). Average latency is measured locally on CPU (lower is better). Benchmark data pulled from [MTEB](https://huggingface.co/spaces/mteb/leaderboard). 
-
-
-
-| Model                                         | Latency  | Benchmark 1 | Benchmark 2 | Benchmark 3 | Benchmark 4 |
-|-----------------------------------------------|----------|-------------|-------------|-------------|-------------|
-| all-mpnet-base-v2                              | 6.12 s   | 80.28       | 65.07       | 43.69       | 83.04       |
-| all-MiniLM-L6-v2                               | 1.14 s   | 78.9        | 63.05       | 42.35       | 82.37       |
-| BAAI/bge-large-en-v1.5                         | 20.8 s   | 83.11       | 75.97       | 46.08       | 87.12       |
-| BAAI/bge-base-en-v1.5                          | 6.48 s   | 82.4        | 75.53       | 45.77       | 86.55       |
-| BAAI/bge-small-en-v1.5                         | 1.85 s   | 81.59       | 74.14       | 43.82       | 84.92       |
-| TaylorAI/bge-micro-v2                          | 0.671 s  | 78.65       | 68.04       | 39.18       | 82.81       |
-| TaylorAI/gte-tiny                              | 1.25 s   | 80.46       | 70.35       | 42.09       | 82.83       |
-| thenlper/gte-base                              | 6.28 s   | 82.3        | 73.01       | 46.2        | 84.57       |
-| thenlper/gte-small                             | 2.14 s   | 82.07       | 72.31       | 44.89       | 83.54       |
-| universal-sentence-encoder-large/5             | 0.769 s  | 74.05       | 67.9        | 37.82       | 79.53       |
-| universal-sentence-encoder-multilingual-large/3| 1.02 s   | 75.35       | 65.78       | 35.06       | 79.62       |
-| universal-sentence-encoder-multilingual/3      | 0.162 s  | 75.39       | 63.42       | 34.82       | 75.43       |
-| universal-sentence-encoder/4                   | 0.019 s  | 72.04       | 64.45       | 35.71       | 76.23       |
-
-*Relative embeddings latency on CPU*
 ![Embeddings Latency on CPU](images/speed_cpu.png)
 
 *Relative embeddings latency on GPU*
@@ -238,15 +200,3 @@ We constantly evaluate embedding models using standardized benchmarks (higher is
 ![Embeddings Quality](images/quality.png)
 
 ![Scatter of Embeddings](images/scatter.png)
-
-
-
-## Vector search performance analysis
-
-VectorDB is also optimized for speed of retrieval. We automatically uses [Faiss](https://github.com/facebookresearch/faiss) for low number of chunks (<4000) and [mrpt](https://github.com/vioshyvo/mrpt) for high number of chunks to ensure maximum performance across the spectrum of use cases.
-
-![Vector search engine comparison](images/comparison.png)
-
-## License
-
-MIT License.
